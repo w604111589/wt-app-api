@@ -21,6 +21,16 @@ func GetCommentOne(id int) Comment {
 	return comment
 }
 
+func CreateCommentOne(comment Comment) (int64, error) {
+	o := orm.NewOrm()
+	id, err := o.Insert(comment)
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
+}
+
 // 分页时的文章结构体
 type CommentPage struct {
 	CommentList []*Comment

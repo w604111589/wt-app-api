@@ -21,6 +21,15 @@ func (a *CommentController) Get() {
 	a.ServeJSON()
 }
 
+//Create 获取文章评论
+func (a *CommentController) Create() {
+	id, _ := a.GetInt("id", 1)
+	article := models.GetCommentOne(id)
+	res := common.Success(article)
+	a.Data["json"] = res
+	a.ServeJSON()
+}
+
 //GetAll 获取文章评论
 func (a *CommentController) GetAll() {
 	page, _ := a.GetInt("page", 1)
