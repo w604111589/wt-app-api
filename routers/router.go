@@ -21,26 +21,8 @@ func init() {
 		AllowHeaders:     []string{"Origin", "content_type", "token"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true}))
-	// ns := beego.NewNamespace("/v1",
-	// 	beego.NSNamespace("/object",
-	// 		beego.NSInclude(
-	// 			&controllers.ObjectController{},
-	// 			&controllers.ArticleController{},
-	// 		),
-	// 	),
-	// 	beego.NSNamespace("/user",
-	// 		beego.NSInclude(
-	// 			&controllers.UserController{},
-	// 		),
-	// 	),
-	// 	// beego.NSNamespace("/article",
-	// 	// 	beego.NSInclude(
-	// 	// 		&controllers.ArticleController{},
-	// 	// 	),
-	// 	// ),
-	// )
-	// beego.AddNamespace(ns)
 	beego.AutoRouter(&controllers.ArticleController{})
 	beego.AutoRouter(&controllers.LabelController{})
 	beego.AutoRouter(&controllers.GoodsController{})
+	beego.AutoRouter(&controllers.CommentController{})
 }

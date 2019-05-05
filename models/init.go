@@ -22,7 +22,7 @@ func init() {
 
 	orm.RegisterDataBase("default", "mysql", path)
 
-	orm.RegisterModelWithPrefix("wt_", new(Label), new(Article), new(Goods))
+	orm.RegisterModelWithPrefix("wt_", new(Label), new(Article), new(Goods), new(Comment))
 
 	fmt.Println("数据库初始化成功...")
 }
