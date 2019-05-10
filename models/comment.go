@@ -5,11 +5,11 @@ import (
 )
 
 type Comment struct {
-	Id            int    `json:"id"`
-	ArticleId     int    `json:"article_id"`
-	Content       string `json:"content"`
-	Commentor     string `json:"commentor"`
-	Comment_lever string `json:"commentor_lever"`
+	Id            int    `json:"id" form:"-"`
+	ArticleId     int    `json:"article_id" form:"article_id"`
+	Content       string `json:"content" form:"content"`
+	Commentor     string `json:"commentor" form:"commentor"`
+	Comment_lever string `json:"commentor_lever" form:"commentor_lever"`
 	CreateTime    string `json:"create_time"`
 }
 

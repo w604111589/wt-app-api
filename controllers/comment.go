@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"encoding/json"
 	"wt-app-api/common"
 	"wt-app-api/models"
 
@@ -23,9 +24,11 @@ func (a *CommentController) Get() {
 
 //Create 获取文章评论
 func (a *CommentController) Create() {
-	id, _ := a.GetInt("id", 1)
-	article := models.GetCommentOne(id)
-	res := common.Success(article)
+	var comment models.Comment
+	json.Unmarshal(a.Ctx.Input.RequestBody, &comment)
+
+	id,_ := models.CreateCommentOne(comment)
+	res := common.Success(id)
 	a.Data["json"] = res
 	a.ServeJSON()
 }
@@ -35,7 +38,6 @@ func (a *CommentController) GetAll() {
 	page, _ := a.GetInt("page", 1)
 	limit, _ := a.GetInt("limit", 10)
 	article_id, err_ariticle_id := a.GetInt("article_id", 1)
-	// title := a.GetString("title")
 	content := a.GetString("content")
 	status, err_status := a.GetInt("status")
 	filters := make(map[string]interface{})
