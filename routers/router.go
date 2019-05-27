@@ -26,4 +26,5 @@ func init() {
 	beego.AutoRouter(&controllers.GoodsController{})
 	beego.AutoRouter(&controllers.CommentController{})
 	beego.AutoRouter(&controllers.ChatController{})
+	beego.AutoRouter(&controllers.UploadController{})
 }

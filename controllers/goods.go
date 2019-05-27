@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"strings"
+	"time"
 	"wt-app-api/common"
 	"wt-app-api/models"
 
@@ -61,4 +63,36 @@ func (a *GoodsController) GetAll() {
 	res := common.Success(goodsPage)
 	a.Data["json"] = res
 	a.ServeJSON()
+}
+
+//GetAll 修改文章
+func (a *GoodsController) UpdateArticle() {
+	id, _ := a.GetInt("id")
+	if id == 0 {
+		goods := new(models.Goods)
+		goods.Name = strings.TrimSpace(a.GetString("name"))
+		goods.Abstract = a.GetString("abstract")
+		goods.Type, _ = a.GetInt("type")
+		goods.OriginPrice, _ = a.GetFloat("origin_price")
+		goods.CurrentPrice, _ = a.GetFloat("current_price")
+		goods.CreateTime = time.Now().Format("2006-01-02 15:04:05")
+		goods.UpdateTime = time.Now().Format("2006-01-02 15:04:05")
+		if _, err := goods.CreateOne(); err != nil {
+			a.Data["json"] = common.Fail(300, "创建文章失败")
+		}
+		a.Data["json"] = common.Fail(200, "创建文章成功")
+	} else {
+		goods := models.GetGoodsOne(id)
+		goods.Name = strings.TrimSpace(a.GetString("name"))
+		goods.Abstract = a.GetString("abstract")
+		goods.Type, _ = a.GetInt("type")
+		goods.OriginPrice, _ = a.GetFloat("origin_price")
+		goods.UpdateTime = time.Now().Format("2006-01-02 15:04:05")
+		if _, err := goods.UpdateOne(); err != nil {
+			a.Data["json"] = common.Fail(300, "修改文章失败")
+		}
+		a.Data["json"] = common.Fail(200, "修改文章成功")
+	}
+	a.ServeJSON()
+
 }

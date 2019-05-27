@@ -47,10 +47,11 @@ func init() {
 
 func (manager *ClientManager) broast() {
 	for {
-		time.Sleep(10 * time.Second)
+		time.Sleep(15 * time.Second)
 
 		// manager.broadcast <- []byte("我是系统广播消息")
-		str, _ := json.Marshal(&Message{Sender: "system", Content: "我是系统广播消息"})
+		count := len(manager.clients)
+		str, _ := json.Marshal(&Message{Sender: "system", Content: "我是系统广播消息,当前连接人数count:" + string(count)})
 		manager.broadcast <- []byte(str)
 
 	}

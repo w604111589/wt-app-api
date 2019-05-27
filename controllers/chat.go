@@ -32,7 +32,7 @@ func (c *ChatController) Ws() {
 	}
 	fmt.Println("连接已建立，用户ID为：", userId)
 	newV4, _ := uuid.NewV4()
-
+	
 	models.WsHandler(newV4.String(), userId, conn)
 
 }

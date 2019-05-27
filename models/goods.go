@@ -10,8 +10,8 @@ type Goods struct {
 	Name         string  `json:"name"`
 	Type         int     `json:"type"`
 	Abstract     string  `json:"abstract"`
-	OriginPrice  float32 `json:"origin_price"`
-	CurrentPrice float32 `json:"current_price"`
+	OriginPrice  float64 `json:"origin_price"`
+	CurrentPrice float64 `json:"current_price"`
 	ImageUrl     string  `json:"image_url"`
 	CreateTime   string  `json:"create_time"`
 	UpdateTime   string  `json:"update_time"`
@@ -50,4 +50,20 @@ func GetGoodsAll(page, limit int, filters map[string]interface{}) GoodsPage {
 	query.Limit(limit, offset).All(&goodsPage.Lists)
 
 	return goodsPage
+}
+
+func (g *Goods) UpdateOne(fields ...string) (int64, error) {
+	res, err := orm.NewOrm().Update(g, fields...)
+	if err != nil {
+		return 0, err
+	}
+	return res, nil
+}
+
+func (g *Goods) CreateOne(fields ...string) (int64, error) {
+	res, err := orm.NewOrm().Insert(g)
+	if err != nil {
+		return 0, err
+	}
+	return res, nil
 }
